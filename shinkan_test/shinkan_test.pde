@@ -1,6 +1,6 @@
 SpaceShip myShip;
 
-int numOfEnemies = 50;
+int numOfEnemies = 20;
 SpaceShip[] enemy = new SpaceShip[numOfEnemies];
 
 int numOfMaxShots = 50;
@@ -28,7 +28,7 @@ void setup() {
   for(int i = 0; i < numOfEnemies; i++) {
     float spawnX = random(100, 1100);
     float spawnY = random(50, 500);
-    enemy[i] = new SpaceShip(loadImage("DurrrSpaceShip.jpeg"), int(spawnX), int(spawnY), 3, 2);
+    enemy[i] = new SpaceShip(loadImage("enemy_reiwa.png"), int(spawnX), int(spawnY), 3, 2);
     enemy[i].visible = true;
   }
   for(int i = 0; i < numOfMaxShots; i++) {
