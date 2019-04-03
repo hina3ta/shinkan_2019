@@ -1,6 +1,6 @@
 SpaceShip myShip;
 
-int numOfEnemies = 8;
+int numOfEnemies = 50;
 SpaceShip[] enemy = new SpaceShip[numOfEnemies];
 
 int numOfMaxShots = 50;
@@ -17,7 +17,8 @@ boolean keyUp = false;
 boolean keyDown = false;
 
 void setup() {
-  size(1200, 1200);
+  size(1200, 1200 ,P2D);
+  pixelDensity(displayDensity());
   background(255);
   fill(0, 0, 0);
   noStroke();
@@ -225,7 +226,7 @@ class Shot {
   int xpos;
   int ypos;
   color c;
-  int speed = 4;
+  int speed = 8;
   boolean visible = false;
 
   Shot(int _xpos, int _ypos, color _c) {
@@ -255,7 +256,7 @@ class Bomb {
   int xpos;
   int ypos;
   color c;
-  int speed = 3;
+  int speed = 5;
   boolean visible = false;
 
   Bomb(int _xpos, int _ypos, color _c) {
