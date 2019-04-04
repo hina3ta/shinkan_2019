@@ -17,7 +17,7 @@ boolean keyUp = false;
 boolean keyDown = false;
 
 void setup() {
-  size(1200, 1200 ,P2D);
+  size(1200, 1200, P2D);
   pixelDensity(displayDensity());
   background(255);
   fill(0, 0, 0);
