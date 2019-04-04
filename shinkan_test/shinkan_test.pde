@@ -10,7 +10,6 @@ int nextShot = 0;
 int numOfMaxBombs = 100;
 Bomb[] bombs = new Bomb[numOfMaxBombs];
 int nextBomb = 0;
-
 boolean keyLeft = false;
 boolean keyRight = false;
 boolean keyUp = false;
@@ -23,7 +22,7 @@ void setup() {
   fill(0, 0, 0);
   noStroke();
   frameRate(60);
-  myShip = new SpaceShip(loadImage("test01.png"), 500, 900, 3, 1);
+  myShip = new SpaceShip(loadImage("test01.png"), width/2, (height * 3) / 4, 3, 1);
   myShip.visible = true;
   for(int i = 0; i < numOfEnemies; i++) {
     float spawnX = random(100, 1100);
