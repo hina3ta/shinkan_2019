@@ -25,8 +25,8 @@ void setup() {
   myShip = new SpaceShip(loadImage("test01.png"), width/2, (height * 3) / 4, 3, 1);
   myShip.visible = true;
   for(int i = 0; i < numOfEnemies; i++) {
-    float spawnX = random(100, 1100);
-    float spawnY = random(50, 500);
+    float spawnX = random(0, width);
+    float spawnY = random(0, height/4);
     enemy[i] = new SpaceShip(loadImage("enemy_reiwa.png"), int(spawnX), int(spawnY), 3, 2);
     enemy[i].visible = true;
   }
