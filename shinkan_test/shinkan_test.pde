@@ -91,7 +91,6 @@ void collisionDetection() {
   for(int i = 0; i < numOfMaxBombs; i++) {
     if(bombs[i].visible && myShip.isIn(bombs[i].xpos, bombs[i].ypos)) {
       myShip.visible = false;
-      bombs[i].visible = false;
     }
   }
 }
