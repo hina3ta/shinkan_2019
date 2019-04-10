@@ -1,282 +1,207 @@
-SpaceShip myShip;
+ArrayList<Bullet> bulletList;
+ArrayList<Laser> laserList;
+Enemy enemy;
+Player player;
 
-int numOfEnemies = 20;
-SpaceShip[] enemy = new SpaceShip[numOfEnemies];
-
-int numOfMaxShots = 50;
-Shot[] shots = new Shot[numOfMaxShots];
-int nextShot = 0;
-
-int numOfMaxBombs = 100;
-Bomb[] bombs = new Bomb[numOfMaxBombs];
-int nextBomb = 0;
-boolean keyLeft = false;
-boolean keyRight = false;
-boolean keyUp = false;
-boolean keyDown = false;
+void mouseClicked() {
+  setup();
+}
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  size(500, 500);
   pixelDensity(displayDensity());
-  background(255);
-  fill(0, 0, 0);
+  background(255, 255, 255);
+  fill(0);
   noStroke();
   frameRate(60);
-  myShip = new SpaceShip(loadImage("test01.png"), width/2, (height * 3) / 4, 3, 1);
-  myShip.visible = true;
-  for(int i = 0; i < numOfEnemies; i++) {
-    float spawnX = random(0, width);
-    float spawnY = random(0, height/4);
-    enemy[i] = new SpaceShip(loadImage("enemy_reiwa.png"), int(spawnX), int(spawnY), 3, 2);
-    enemy[i].visible = true;
-  }
-  for(int i = 0; i < numOfMaxShots; i++) {
-    shots[i] = new Shot(0, height + 100, color(255, 0, 255));
-  }
-  for(int i = 0; i < numOfMaxBombs; i++) {
-    bombs[i] = new Bomb(0, -100, color(255, 0, 0));
-  }
+  
+  bulletList = new ArrayList<Bullet>();
+  laserList = new ArrayList<Laser> ();
+  enemy = new Enemy();
+  player = new Player(loadImage("test01.png"), float(width/2), float((height * 3) / 4), 1);
 }
 
 void draw() {
-  background(255);
-  myShip.draw();
-  myShipController();
-  drawEnemies();
-  drawBombs();
-  enemyController();
-  shotsController();
-  collisionDetection();
-}
+  fill(255);
+  rect(0, 0, width, height);
 
-void drawEnemies() {
-  for(int i = 0; i < numOfEnemies; i++) {
-    enemy[i].draw();
-  }
-}
-
-void enemyController() {
-  for(int i = 0; i < numOfEnemies; i++) {
-    if(enemy[i].xpos < 0 || enemy[i].xpos + enemy[i].getWidth() > width) {
-      enemy[i].speed = - enemy[i].speed;
+  fill(255, 0, 0);
+  for (int i = bulletList.size()-1; i >= 0; i--) {
+    Bullet bullet = bulletList.get(i);
+    bullet.move();
+    bullet.draw();
+    if (collision(player.x, player.y, 5, 5, bullet.x, bullet.y, 5, 5)) {
+      bullet.hit = true;
+      player.hitPoint--;
     }
-    enemy[i].moveXaxis();
-    if(enemy[i].visible) {
-      if(floor(random(50)) == 5) {
-        bombs[nextBomb].xpos = enemy[i].xpos + enemy[i].getWidth() / 2;
-        bombs[nextBomb].ypos = enemy[i].ypos + enemy[i].getHeight();
-        bombs[nextBomb].visible = true;
-        nextBomb = (nextBomb + 1) % numOfMaxBombs;
-      }
+    if (bullet.needRemove()) bulletList.remove(i);
+  }
+  
+  fill(0, 0, 255);
+  for (int i = laserList.size()-1; i >= 0; i--) {
+    Laser laser = laserList.get(i);
+    laser.move();
+    laser.draw();
+    if (collision(enemy.x, enemy.y, 20, 20, laser.x, laser.y, laser.w, laser.h)) {
+      laser.hit = true;
+      enemy.hitPoint--;
     }
+    if (laser.needRemove()) laserList.remove(i);
   }
+  
+  fill(167, 87, 168);
+  enemy.move();
+  enemy.draw();
+  
+  player.move();
+  player.draw();
+
+  fill(0);
+  text("Player:" + nf(player.hitPoint, 3) , 20, 20);
+  text("Enemy:" + nf(enemy.hitPoint, 3)  , 20, 40); 
+
+  if (player.hitPoint == 0 || enemy.hitPoint == 0)
+    noLoop();
 }
 
-void drawBombs() {
-  for(int i = 0; i < numOfMaxBombs; i++) {
-    bombs[i].draw();
-    bombs[i].move();
-  }
+boolean collision(float x1, float y1, float w1, float h1,
+                  float x2, float y2, float w2, float h2) {
+  if (x1 + w1/2 < x2 - w2/2) return false;
+  if (x2 + w2/2 < x1 - w1/2) return false;
+  if (y1 + h1/2 < y2 - h2/2) return false;
+  if (y2 + h2/2 < y1 - h1/2) return false;
+  return true;
 }
 
-void collisionDetection() {
-  for(int i = 0; i < numOfEnemies; i++) {
-    for(int j = 0; j < numOfMaxShots; j++) {
-      if(enemy[i].visible && enemy[i].isIn(shots[j].xpos, shots[j].ypos)) {
-        enemy[i].visible = false;
-        shots[j].visible = false;
-      }
-    }
+class Bullet {
+  float x;
+  float y;
+  float angle;
+  float speed;
+  float angleSpeed;
+  boolean hit = false;
+  
+  Bullet (float x, float y, float angle, float speed, float angleSpeed) {
+    this.x = x; 
+    this.y = y;
+    this.angle = angle;
+    this.speed = speed;
+    this.angleSpeed = angleSpeed;
   }
-  for(int i = 0; i < numOfMaxBombs; i++) {
-    if(bombs[i].visible && myShip.isIn(bombs[i].xpos, bombs[i].ypos)) {
-      myShip.visible = false;
-    }
+  
+  void move() {
+    angle = (angle + angleSpeed) % 360;
+    x += cos(radians(angle)) * speed;
+    y += sin(radians(angle)) * speed;
   }
-}
-
-void keyPressed() {
-  if(key == 'd') {
-    keyRight = true;
+  
+  void draw() {
+    ellipse(x, y, 10, 10);
   }
-  if(key == 'a') {
-    keyLeft = true;
-  }
-  if(key == 'w') {
-    keyUp = true;
-  }
-  if(key == 's') {
-    keyDown = true;
-  }
-}
-
-void keyReleased() {
-  if(key == 'a') {
-    keyLeft = false;
-  }
-  else if(key == 'd') {
-    keyRight = false;
-  }
-  else if(key == 'w') {
-    keyUp = false;
-  }
-  else if(key == 's') {
-    keyDown = false;
-  }
-  else if(keyCode == ' ') {
-    fire();
+  
+  boolean needRemove() {
+    return x < 0 || x > width || y < 0 || y > height || hit;
   }
 }
 
-void myShipController() {
-  if(keyLeft) {
-    myShip.speed = - abs(myShip.speed);
-    if(myShip.xpos + myShip.speed >= 0) {
-      myShip.moveXaxis();
-    }
+class Enemy {
+  float x = width / 2;
+  float y = height / 3;
+  int angle = 0;
+  int hitPoint = 30;
+  
+  void move() {
+    angle = (angle + 1) % 360;
+    x += cos(radians(angle)) * 2;
+    y += sin(radians(angle*2 + 90)) * 3;    
   }
-  else if(keyRight) {
-    myShip.speed = abs(myShip.speed);
-    if(myShip.xpos + myShip.getWidth() + myShip.speed <= width) {
-      myShip.moveXaxis();
-    }
+  
+  void draw() {
+    rect(x-10, y-10, 20, 20);     
+    if (frameCount % 90 == 0) circleShot();
+    if (frameCount % 10 == 0) slowCurveShot();
+    if (frameCount % 120 == 0) snipeShot();
   }
-  else if(keyUp) {
-    myShip.speed = - abs(myShip.speed);
-    if(myShip.ypos + myShip.speed >= 0) {
-      myShip.moveYaxis();
-    }
-  }
-  else if(keyDown) {
-    myShip.speed = abs(myShip.speed);
-    if(myShip.ypos + myShip.getHeight() + myShip.speed <= height) {
-      myShip.moveYaxis();
+  
+  void circleShot() {
+    for (float degree = 0; degree < 360; degree += 10) {
+      Bullet bullet = new Bullet(x, y, degree, 2, 0);
+      bulletList.add(bullet);
     }
   }
-}
-
-void shotsController() {
-  for(int i = 0; i < numOfMaxShots; i++) {
-    shots[i].draw();
-    shots[i].move();
+  
+  void slowCurveShot() {
+    Bullet bullet = new Bullet(x, y, angle, 1, 0.2);
+    bulletList.add(bullet);
+  }
+  
+  void snipeShot() {
+    float dx = player.x - x;
+    float dy = player.y - y;
+    float degree = degrees(atan2(dy,dx));
+    Bullet bullet = new Bullet(x, y, degree, 2, 0);
+    bulletList.add(bullet);
   }
 }
 
-void fire() {
-  if(myShip.visible) {
-    shots[nextShot].xpos = myShip.xpos + myShip.getWidth() / 2;
-    shots[nextShot].ypos = myShip.ypos;
-    shots[nextShot].visible = true;
-    nextShot = (nextShot + 1) % numOfMaxShots;
-  }
-}
-
-class SpaceShip {
+class Player {
+  float x = width / 2;
+  float y = height - 10;
+  int hitPoint = 10;
   PImage img;
-  int xpos;
-  int ypos;
-  int speed;
   int scale;
-  boolean visible = false;
-
-  SpaceShip(PImage _img, int _xpos, int _ypos, int _speed, int _scale) {
+  
+  Player(PImage _img, float _x, float _y, int _scale) {
     img = _img;
-    xpos = _xpos;
-    ypos = _ypos;
-    speed = _speed;
+    x = _x;
+    y = _y;
     scale = _scale;
   }
-
+  
+  void move() {
+    if (keyPressed) {
+      switch (key) {
+        case 'w':    
+        y -= 2; 
+        break; 
+        case 's':  
+        y += 2; 
+        break; 
+        case 'a':  
+        x -= 2; 
+        break; 
+        case 'd': 
+        x += 2; 
+        break; 
+        case ' ':
+        laserShot();
+        break;
+      }
+    }
+    if (x-10 < 0)      x = 10;
+    if (x+10 > width)  x = width-10;
+    if (y-10 < 0)      y = 10;
+    if (y+10 > height) y = height-10;
+  }
+    
   void draw() {
-    if(visible) {
-      image(img, xpos, ypos, getWidth(), getHeight());
-    }
+    image(img, x, y, width/15, height/15);
   }
 
-  void moveXaxis() {
-    xpos += speed;
-  }
-
-  void moveYaxis() {
-    ypos += speed;
-  }
-
-  int getWidth() {
-    return img.width / scale;
-  }
-
-  int getHeight() {
-    return img.height / scale;
-  }
-
-  boolean isIn(int x, int y) {
-    if(x >= xpos && x <= xpos + getWidth() &&
-       y >= ypos && y <= ypos + getHeight()) {
-      return true;
-    }
-    else {
-      return false;
-    }
+  void laserShot() {
+    laserList.add(new Laser(x, y, -90, 2, 20));
   }
 }
 
-class Shot {
-  int xpos;
-  int ypos;
-  color c;
-  int speed = 8;
-  boolean visible = false;
-
-  Shot(int _xpos, int _ypos, color _c) {
-    xpos = _xpos;
-    ypos = _ypos;
-    c = _c;
+class Laser extends Bullet {
+  float w;
+  float h;
+  Laser (float x, float y, float angle, float w, float h) {
+    super(x, y, angle, 3, 0);
+    this.w = w;
+    this.h = h;
   }
-
   void draw() {
-    fill(c);
-    if(visible) {
-      rect(xpos, ypos, 5, 10);
-    }
-  }
-
-  void move() {
-    if(ypos > -50) {
-      ypos -= speed;
-    }
-    else {
-      visible = false;
-    }
-  }
-}
-
-class Bomb {
-  int xpos;
-  int ypos;
-  color c;
-  int speed = 5;
-  boolean visible = false;
-
-  Bomb(int _xpos, int _ypos, color _c) {
-    xpos = _xpos;
-    ypos = _ypos;
-    c = _c;
-  }
-
-  void draw() {
-    fill(c);
-    if(visible) {
-      fill(c);
-      ellipse(xpos, ypos, 10, 10);
-    }
-  }
-
-  void move() {
-    if(visible && ypos < height + 50) {
-      ypos += speed;
-    }
-    else {
-      visible = false;
-    }
+    rect(x-w/2, y-h/2, w, h);
   }
 }
