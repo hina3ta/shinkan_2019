@@ -3,10 +3,16 @@ ArrayList<Laser> laserList;
 Enemy enemy;
 Player player;
 
+/**
+ * マウスがクリックされたら呼ばれるメソッド（関数）です
+ */
 void mouseClicked() {
   setup();
 }
 
+/**
+ * ゲームが起動したときに呼ばれるメソッド（関数）です
+ */
 void setup() {
   size(500, 500);
   pixelDensity(displayDensity());
@@ -21,6 +27,10 @@ void setup() {
   player = new Player(loadImage("test01.png"), float(width/2), float((height * 3) / 4), 1);
 }
 
+/**
+ * 1秒間に30回呼ばれるメソッドです
+ * ゲームの処理はここで書かれています
+ */
 void draw() {
   fill(255);
   rect(0, 0, width, height);
@@ -60,10 +70,15 @@ void draw() {
   text("Player:" + nf(player.hitPoint, 3) , 20, 20);
   text("Enemy:" + nf(enemy.hitPoint, 3)  , 20, 40);
 
-  if (player.hitPoint == 0 || enemy.hitPoint == 0)
+  /* 自機か敵機のHPが0になればゲームを止めます */
+  if (player.hitPoint == 0 || enemy.hitPoint == 0){
     noLoop();
+  }
 }
 
+/**
+ * 当たり判定をするメソッドです
+ */
 boolean collision(float x1, float y1, float w1, float h1,
                   float x2, float y2, float w2, float h2) {
   if (x1 + w1/2 < x2 - w2/2) return false;

@@ -1,3 +1,6 @@
+/**
+ * 自機を表すクラスです
+ */
 public class Player {
   float x = width / 2;
   float y = height - 10;
@@ -12,6 +15,9 @@ public class Player {
     scale = _scale;
   }
 
+  /**
+   * 特定のキーが押されたときに移動するためのメソッドです
+   */
   void move() {
     if (keyPressed) {
       switch (key) {
@@ -38,10 +44,16 @@ public class Player {
     if (y+10 > height) y = height-10;
   }
 
+  /**
+   * 自機を画面に表示するメソッドです
+   */
   void draw() {
     image(img, x, y, width/15, height/15);
   }
 
+  /**
+   * 攻撃をするためのメソッドです
+   */
   void laserShot() {
     laserList.add(new Laser(x, y, -90, 2, 20));
   }
