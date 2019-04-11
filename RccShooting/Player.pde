@@ -8,11 +8,11 @@ public class Player {
   PImage img;
   int scale;
 
-  Player(PImage _img, float _x, float _y, int _scale) {
-    img = _img;
-    x = _x;
-    y = _y;
-    scale = _scale;
+  Player(PImage img, float x, float y, int scale) {
+    this.img = img;
+    this.x = x;
+    this.y = y;
+    this.scale = scale;
   }
 
   /**
@@ -48,7 +48,7 @@ public class Player {
    * 自機を画面に表示するメソッドです
    */
   void draw() {
-    image(img, x, y, width/15, height/15);
+    image(img, 0, 0, 32, 32);
   }
 
   /**
