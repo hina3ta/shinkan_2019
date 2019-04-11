@@ -27,7 +27,7 @@ public class Player extends Character {
   }
 
   void update() {
-    if (space) {
+    if ((keyPressed == true) && (key == ' ')) {
       laserList.add(new Laser(getX(), getY(), -90, 2, 20));
     }
 
