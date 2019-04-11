@@ -78,13 +78,13 @@ void draw() {
 /* キーを押した際の動きと見えない壁の配置のメソッドです　*/
 void keyPressed() {
     if (key == 'a') {
-      player.x -= 5;
+      player.x -= 8;
     } else if (key == 'd') {
-      player.x += 5;
+      player.x += 8;
     } else if (key == 'w') {
-      player.y += 5;
+      player.y -= 8;
     } else if (key == 's') {
-      player.y -= 5;
+      player.y += 8;
     } else if (key == ' ') {
       player.laserShot();
     }
