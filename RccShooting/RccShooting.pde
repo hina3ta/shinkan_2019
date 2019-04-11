@@ -24,7 +24,7 @@ void setup() {
   bulletList = new ArrayList<Bullet>();
   laserList = new ArrayList<Laser> ();
   enemy = new Enemy();
-  player = new Player(loadImage("test01.png"), float(width/2), float((height * 3) / 4), 1);
+  player = new Player(loadImage("test01.png"), float(width / 2), float((height * 3) / 4), 1);
 }
 
 /**
@@ -40,59 +40,58 @@ void draw() {
     Bullet bullet = bulletList.get(i);
     bullet.move();
     bullet.draw();
-    if (collision(player.x, player.y, 5, 5, bullet.getX(), bullet.getY(), 5, 5)) {
-      bullet.hit = true;
-      player.hitPoint--;
+    if (collision(player.getX(), player.getY(), 5, 5, bullet.getX(), bullet.getY(), 5, 5)) {
+      bullet.setIsHit(true);
+      player.sufferDamage();
     }
-    if (bullet.needRemove()) bulletList.remove(i);
+    if (bullet.needRemove()){
+      bulletList.remove(i);
+    }
   }
 
   fill(0, 0, 255);
-  for (int i = laserList.size()-1; i >= 0; i--) {
+  for (int i = laserList.size() - 1; i >= 0; i--) {
     Laser laser = laserList.get(i);
     laser.move();
     laser.draw();
-    if (collision(enemy.x, enemy.y, 20, 20, laser.getX(), laser.getY(), laser.w, laser.h)) {
-      laser.hit = true;
-      enemy.hitPoint--;
+    if (collision(enemy.getX(), enemy.getY(), 20, 20, laser.getX(), laser.getY(), laser.getW(), laser.getH())) {
+      laser.setIsHit(true);
+      enemy.sufferDamage();
     }
-    if (laser.needRemove()) laserList.remove(i);
+    if (laser.needRemove()){
+      laserList.remove(i);
+    }
   }
 
   fill(167, 87, 168);
   enemy.move();
   enemy.draw();
 
-  //player.move();
   player.draw();
 
   fill(0);
-  text("Player:" + nf(player.hitPoint, 3) , 20, 20);
-  text("Enemy:" + nf(enemy.hitPoint, 3)  , 20, 40);
+  text("Player:" + nf(player.getHitPoint(), 3) , 20, 20);
+  text("Enemy:" + nf(enemy.getHitPoint(), 3)  , 20, 40);
 
   /* 自機か敵機のHPが0になればゲームを止めます */
-  if (player.hitPoint == 0 || enemy.hitPoint == 0){
+  if (player.getHitPoint() == 0 || enemy.getHitPoint() == 0){
     noLoop();
   }
 }
 /* キーを押した際の動きと見えない壁の配置のメソッドです　*/
 void keyPressed() {
-    if (key == 'a') {
-      player.x -= 8;
-    } else if (key == 'd') {
-      player.x += 8;
-    } else if (key == 'w') {
-      player.y -= 8;
-    } else if (key == 's') {
-      player.y += 8;
-    } else if (key == ' ') {
-      player.laserShot();
-    }
-    if (player.x - 10 < 0)      player.x = 10;
-    if (player.x + 10 > width)  player.x = width-10;
-    if (player.y - 10 < 0)      player.y = 10;
-    if (player.y + 10 > height) player.y = height-10;
+  if (key == 'a') {
+    player.moveLeft();
+  } else if (key == 'd') {
+    player.moveRight();
+  } else if (key == 'w') {
+    player.moveUp();
+  } else if (key == 's') {
+    player.moveDown();
+  } else if (key == ' ') {
+    player.laserShot();
   }
+}
 
 /**
  * 当たり判定をするメソッドです

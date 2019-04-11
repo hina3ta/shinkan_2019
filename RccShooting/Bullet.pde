@@ -1,17 +1,18 @@
 /**
  * 弾を表すクラスです
  */
-public class Bullet extends GameObject{
-  float angle;
-  float speed;
-  float angleSpeed;
-  boolean hit = false;
+class Bullet extends GameObject {
+  private float angle;
+  private float speed;
+  private float angleSpeed;
+  private boolean isHit;
 
   Bullet (float x, float y, float angle, float speed, float angleSpeed) {
     super(x, y);
     this.angle = angle;
     this.speed = speed;
     this.angleSpeed = angleSpeed;
+    this.isHit = false;
   }
 
   /**
@@ -34,6 +35,13 @@ public class Bullet extends GameObject{
    * この弾を消す必要があるかどうか判定するメソッドです
    */
   boolean needRemove() {
-    return getX() < 0 || getX() > width || getY() < 0 || getY() > height || hit;
+    return getX() < 0 || getX() > width || getY() < 0 || getY() > height || isHit;
+  }
+
+  /**
+   * isHitの値をセットします
+   */
+  void setIsHit(boolean result){
+    isHit = result;
   }
 }
