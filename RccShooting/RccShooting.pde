@@ -43,7 +43,7 @@ void draw() {
   rect(0, 0, width, height);
 
   fill(255, 0, 0);
-  for (int i = bulletList.size()-1; i >= 0; i--) {
+  for (int i = 0; i < bulletList.size(); i++) {
     Bullet bullet = bulletList.get(i);
     bullet.move();
     bullet.draw();
@@ -57,7 +57,7 @@ void draw() {
   }
 
   fill(0, 0, 255);
-  for (int i = laserList.size() - 1; i >= 0; i--) {
+  for (int i = 0; i < laserList.size(); i++) {
     Laser laser = laserList.get(i);
     laser.move();
     laser.draw();
