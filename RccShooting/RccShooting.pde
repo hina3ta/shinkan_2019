@@ -3,6 +3,13 @@ ArrayList<Laser> laserList;
 Enemy enemy;
 Player player;
 
+// 各キーが押されているか否かを管理するフラグです
+boolean keyUp = false;
+boolean keyLeft = false;
+boolean keyRight = false;
+boolean keyDown = false;
+boolean space = false;
+
 /**
  * マウスがクリックされたら呼ばれるメソッド（関数）です
  */
@@ -67,6 +74,7 @@ void draw() {
   enemy.move();
   enemy.draw();
 
+  player.update();
   player.draw();
 
   fill(0);
@@ -81,16 +89,56 @@ void draw() {
 
 /* キーを押した際の動きと見えない壁の配置のメソッドです　*/
 void keyPressed() {
+  if (key == 'w') {
+    keyUp = true;
+    return;
+  }
+  
   if (key == 'a') {
-    player.moveLeft();
-  } else if (key == 'd') {
-    player.moveRight();
-  } else if (key == 'w') {
-    player.moveUp();
-  } else if (key == 's') {
-    player.moveDown();
-  } else if (key == ' ') {
-    player.laserShot();
+    keyLeft = true;
+    return;
+  }
+  
+  if (key == 'd') {
+    keyRight = true;
+    return;
+  }
+  
+  if (key == 's') {
+    keyDown = true;
+    return;
+  }
+  
+  if (key == ' ') {
+    space = true;
+    return;
+  }
+}
+
+void keyReleased() {
+  if (key == 'w') {
+    keyUp = false;
+    return;
+  }
+  
+  if (key == 'a') {
+    keyLeft = false;
+    return;
+  }
+  
+  if (key == 'd') {
+    keyRight = false;
+    return;
+  }
+  
+  if (key == 's') {
+    keyDown = false;
+    return;
+  }
+  
+  if (key == ' ') {
+    space = false;
+    return;
   }
 }
 
