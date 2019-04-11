@@ -71,7 +71,7 @@ void draw() {
   text("Enemy:" + nf(enemy.hitPoint, 3)  , 20, 40);
 
   /* 自機か敵機のHPが0になればゲームを止めます */
-  if (player.hitPoint == 0 || enemy.hitPoint == 0){
+  if (player.hitPoint <= 0 || enemy.hitPoint <= 0){
     noLoop();
   }
 }
