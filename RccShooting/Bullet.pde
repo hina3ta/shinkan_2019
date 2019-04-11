@@ -1,20 +1,18 @@
 /**
  * 弾を表すクラスです
  */
-public class Bullet {
-  float x;
-  float y;
-  float angle;
-  float speed;
-  float angleSpeed;
-  boolean hit = false;
+class Bullet extends GameObject {
+  private float angle;
+  private float speed;
+  private float angleSpeed;
+  private boolean isHit;
 
   Bullet (float x, float y, float angle, float speed, float angleSpeed) {
-    this.x = x;
-    this.y = y;
+    super(x, y);
     this.angle = angle;
     this.speed = speed;
     this.angleSpeed = angleSpeed;
+    this.isHit = false;
   }
 
   /**
@@ -22,21 +20,28 @@ public class Bullet {
    */
   void move() {
     angle = (angle + angleSpeed) % 360;
-    x += cos(radians(angle)) * speed;
-    y += sin(radians(angle)) * speed;
+    setX(getX() + cos(radians(angle)) * speed);
+    setY(getY() + sin(radians(angle)) * speed);
   }
 
   /**
    * 弾を画面に表示するメソッドです
    */
   void draw() {
-    ellipse(x, y, 10, 10);
+    ellipse(getX(), getY(), 10, 10);
   }
 
   /**
    * この弾を消す必要があるかどうか判定するメソッドです
    */
   boolean needRemove() {
-    return x < 0 || x > width || y < 0 || y > height || hit;
+    return getX() < 0 || getX() > width || getY() < 0 || getY() > height || isHit;
+  }
+
+  /**
+   * isHitの値をセットします
+   */
+  void setIsHit(boolean result){
+    isHit = result;
   }
 }
