@@ -40,7 +40,7 @@ void draw() {
     Bullet bullet = bulletList.get(i);
     bullet.move();
     bullet.draw();
-    if (collision(player.getX(), player.getY(), 5, 5, bullet.getX(), bullet.getY(), 5, 5)) {
+    if (collision(player, bullet)) {
       bullet.setIsHit(true);
       player.sufferDamage();
     }
@@ -54,7 +54,7 @@ void draw() {
     Laser laser = laserList.get(i);
     laser.move();
     laser.draw();
-    if (collision(enemy.getX(), enemy.getY(), 20, 20, laser.getX(), laser.getY(), laser.getW(), laser.getH())) {
+    if (collision(enemy, laser)) {
       laser.setIsHit(true);
       enemy.sufferDamage();
     }
@@ -97,11 +97,10 @@ void keyPressed() {
 /**
  * 当たり判定をするメソッドです
  */
-boolean collision(float x1, float y1, float w1, float h1,
-                  float x2, float y2, float w2, float h2) {
-  if (x1 + w1/2 < x2 - w2/2) return false;
-  if (x2 + w2/2 < x1 - w1/2) return false;
-  if (y1 + h1/2 < y2 - h2/2) return false;
-  if (y2 + h2/2 < y1 - h1/2) return false;
-  return true;
+boolean collision(GameObject gameObject1, GameObject gameObject2) {
+  float distanceX = gameObject1.getX() - gameObject2.getX();
+  float distanceY = gameObject1.getY() - gameObject2.getY();
+  /* 2乗同士で判定 */
+  float sqDistance = sq(distanceX) + sq(distanceY);
+  return sqDistance < sq(gameObject1.getHitRadius() + gameObject2.getHitRadius());
 }
