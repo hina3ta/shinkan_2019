@@ -40,7 +40,7 @@ void draw() {
     Bullet bullet = bulletList.get(i);
     bullet.move();
     bullet.draw();
-    if (collision(player.x, player.y, 5, 5, bullet.x, bullet.y, 5, 5)) {
+    if (collision(player.x, player.y, 5, 5, bullet.getX(), bullet.getY(), 5, 5)) {
       bullet.hit = true;
       player.hitPoint--;
     }
@@ -52,7 +52,7 @@ void draw() {
     Laser laser = laserList.get(i);
     laser.move();
     laser.draw();
-    if (collision(enemy.x, enemy.y, 20, 20, laser.x, laser.y, laser.w, laser.h)) {
+    if (collision(enemy.x, enemy.y, 20, 20, laser.getX(), laser.getY(), laser.w, laser.h)) {
       laser.hit = true;
       enemy.hitPoint--;
     }

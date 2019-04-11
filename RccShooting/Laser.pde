@@ -13,6 +13,6 @@ public class Laser extends Bullet {
    * レーザーを画面に描画するメソッドです
    */
   void draw() {
-    rect(x-w/2, y-h/2, w, h);
+    rect(getX() - w / 2, getY() - h / 2, w, h);
   }
 }
