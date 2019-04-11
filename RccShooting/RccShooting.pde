@@ -75,24 +75,25 @@ void draw() {
     noLoop();
   }
 }
+
 /* キーを押した際の動きと見えない壁の配置のメソッドです　*/
 void keyPressed() {
-    if (key == 'a') {
-      player.x -= 8;
-    } else if (key == 'd') {
-      player.x += 8;
-    } else if (key == 'w') {
-      player.y -= 8;
-    } else if (key == 's') {
-      player.y += 8;
-    } else if (key == ' ') {
-      player.laserShot();
-    }
-    if (player.x - 10 < 0)      player.x = 10;
-    if (player.x + 10 > width)  player.x = width-10;
-    if (player.y - 10 < 0)      player.y = 10;
-    if (player.y + 10 > height) player.y = height-10;
+  if (key == 'a') {
+    player.x -= 8;
+  } else if (key == 'd') {
+    player.x += 8;
+  } else if (key == 'w') {
+    player.y -= 8;
+  } else if (key == 's') {
+    player.y += 8;
+  } else if (key == ' ') {
+    player.laserShot();
   }
+  if (player.x - 10 < 0)      player.x = 10;
+  if (player.x + 10 > width)  player.x = width-10;
+  if (player.y - 10 < 0)      player.y = 10;
+  if (player.y + 10 > height) player.y = height-10;
+}
 
 /**
  * 当たり判定をするメソッドです
