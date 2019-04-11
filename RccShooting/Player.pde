@@ -8,7 +8,7 @@ public class Player extends Character {
   int speed;
 
   Player(PImage img, float x, float y, int scale) {
-    super(width / 2, height - 50, 10);
+    super(width / 2, height - 50, 10, 10);
     this.img = img;
     this.scale = scale;
     this.speed = 5;
@@ -18,7 +18,8 @@ public class Player extends Character {
    * 自機を画面に表示するメソッドです
    */
   void draw() {
-    image(img, getX(), getY(), 32, 32);
+    // TODO : 定数定義
+    image(img, getX() - 16, getY() - 16, 32, 32);
   }
 
   void setSpeed(int speed){

@@ -5,7 +5,7 @@ class Enemy extends Character {
   private int angle;
 
   Enemy(){
-    super(width / 2, height / 3, 30);
+    super(width / 2, height / 3, 10, 30);
     angle = 0;
   }
 
