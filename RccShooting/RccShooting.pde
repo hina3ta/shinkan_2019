@@ -78,6 +78,7 @@ void draw() {
     noLoop();
   }
 }
+
 /* キーを押した際の動きと見えない壁の配置のメソッドです　*/
 void keyPressed() {
   if (key == 'a') {
