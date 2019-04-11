@@ -93,22 +93,22 @@ void keyPressed() {
     keyUp = true;
     return;
   }
-  
+
   if (key == 'a') {
     keyLeft = true;
     return;
   }
-  
+
   if (key == 'd') {
     keyRight = true;
     return;
   }
-  
+
   if (key == 's') {
     keyDown = true;
     return;
   }
-  
+
   if (key == ' ') {
     space = true;
     return;
@@ -120,22 +120,22 @@ void keyReleased() {
     keyUp = false;
     return;
   }
-  
+
   if (key == 'a') {
     keyLeft = false;
     return;
   }
-  
+
   if (key == 'd') {
     keyRight = false;
     return;
   }
-  
+
   if (key == 's') {
     keyDown = false;
     return;
   }
-  
+
   if (key == ' ') {
     space = false;
     return;
