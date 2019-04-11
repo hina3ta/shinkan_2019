@@ -21,54 +21,29 @@ public class Player extends Character {
     image(img, getX(), getY(), 32, 32);
   }
 
-  /**
-   * 攻撃をするためのメソッドです
-   */
-  void laserShot() {
-    laserList.add(new Laser(getX(), getY(), -90, 2, 20));
-  }
-
   void setSpeed(int speed){
     this.speed = speed;
   }
 
-  /**
-   * 左に動かすメソッドです
-   */
-  void moveLeft(){
-    setX(getX() - speed);
-    if (getX() - speed < 0){
-      setX(10);
+  void update() {
+    if (space) {
+      laserList.add(new Laser(getX(), getY(), -90, 2, 20));
     }
-  }
 
-  /**
-   * 右に動かすメソッドです
-   */
-  void moveRight(){
-    setX(getX() + speed);
-    if (getX() + 10 > width){
-      setX(width - 10);
+    if (keyUp) {
+      setY(getY() - speed);
     }
-  }
 
-  /**
-   * 上に動かすメソッドです
-   */
-  void moveUp(){
-    setY(getY() - speed);
-    if (getY() - 10 < 0){
-      setY(10);
+    if (keyLeft) {
+      setX(getX() - speed);
     }
-  }
 
-  /**
-   * 下に動かすメソッドです
-   */
-  void moveDown(){
-    setY(getY() + speed);
-    if (getY() + 10 > height){
-      setY(height - 10);
+    if (keyRight) {
+      setX(getX() + speed);
+    }
+
+    if (keyDown) {
+      setY(getY() + speed);
     }
   }
 }
