@@ -1,3 +1,6 @@
+/**
+ * レーザーを表すクラスです
+ */
 public class Laser extends Bullet {
   float w;
   float h;
@@ -6,6 +9,9 @@ public class Laser extends Bullet {
     this.w = w;
     this.h = h;
   }
+  /**
+   * レーザーを画面に描画するメソッドです
+   */
   void draw() {
     rect(x-w/2, y-h/2, w, h);
   }
