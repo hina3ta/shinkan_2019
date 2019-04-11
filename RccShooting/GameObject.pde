@@ -5,10 +5,12 @@
 class GameObject {
     private float x;
     private float y;
+    private float hitRadius;
 
-    GameObject(float x, float y){
+    GameObject(float x, float y, float hitRadius){
         this.x = x;
         this.y = y;
+        this.hitRadius = hitRadius;
     }
 
     /**
@@ -23,6 +25,13 @@ class GameObject {
      */
     float getY(){
         return y;
+    }
+
+    /**
+     * hitRadiusの値を取得します
+     */
+    float getHitRadius(){
+        return hitRadius;
     }
 
     /**

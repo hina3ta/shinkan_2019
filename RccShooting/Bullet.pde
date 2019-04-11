@@ -8,7 +8,7 @@ class Bullet extends GameObject {
   private boolean isHit;
 
   Bullet (float x, float y, float angle, float speed, float angleSpeed) {
-    super(x, y);
+    super(x, y, 10);
     this.angle = angle;
     this.speed = speed;
     this.angleSpeed = angleSpeed;
@@ -28,7 +28,7 @@ class Bullet extends GameObject {
    * 弾を画面に表示するメソッドです
    */
   void draw() {
-    ellipse(getX(), getY(), 10, 10);
+    ellipse(getX(), getY(), getHitRadius(), getHitRadius());
   }
 
   /**

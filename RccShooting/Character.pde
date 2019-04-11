@@ -4,8 +4,8 @@
 class Character extends GameObject {
     private int hitPoint;
 
-    Character(float x, float y, int hitPoint){
-        super(x, y);
+    Character(float x, float y, float hitRadius, int hitPoint){
+        super(x, y, hitRadius);
         this.hitPoint = hitPoint;
     }
 
