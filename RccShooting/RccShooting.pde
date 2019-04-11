@@ -165,8 +165,9 @@ int game() {
   player.draw();
 
   fill(0);
-  text("Player:" + nf(player.getHitPoint(), 3) , 20, 20);
-  text("Enemy:" + nf(enemy.getHitPoint(), 3)  , 20, 40);
+  textSize(10);
+  text("Player HP:" + nf(player.getHitPoint(), 3) , 20, 20);
+  text("Enemy HP:" + nf(enemy.getHitPoint(), 3)  , 20, 40);
 
   /* 自機か敵機のHPが0になればゲームを止めます */
   if (player.getHitPoint() <= 0 || enemy.getHitPoint() <= 0){
