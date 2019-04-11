@@ -9,6 +9,7 @@ public class Laser extends Bullet {
     this.w = w;
     this.h = h;
   }
+
   /**
    * レーザーを画面に描画するメソッドです
    */
