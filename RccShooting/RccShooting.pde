@@ -57,7 +57,7 @@ int title(){
   return 0;
 }
 
-/* キーを押した際の動きと見えない壁の配置のメソッドです　*/
+/* キーを押した際の動きに関するメソッドです　*/
 void keyPressed() {
   if (key == 'w') {
     keyUp = true;
@@ -183,7 +183,7 @@ int ending(){
   fill(0);
   text("Thankyou for Playing!", width * 0.2, height * 0.4);
   textSize(30);
-  fill(0, 0, 255);
+  fill(0, 255, 0);
   text("Press 'a' to restart.", width * 0.25, height * 0.7);
   if(keyPressed && key == 'a') {
     return 0;

@@ -31,19 +31,19 @@ public class Player extends Character {
       laserList.add(new Laser(getX(), getY(), -90, 2, 8));
     }
 
-    if (keyUp) {
+    if (keyUp && player.getY() + player.speed >= 0) {
       setY(getY() - speed);
     }
 
-    if (keyLeft) {
+    if (keyLeft && player.getX() + player.speed >= 0) {
       setX(getX() - speed);
     }
 
-    if (keyRight) {
+    if (keyRight && player.getX() + player.speed <= width) {
       setX(getX() + speed);
     }
 
-    if (keyDown) {
+    if (keyDown && player.getY() + player.speed <= height) {
       setY(getY() + speed);
     }
   }
