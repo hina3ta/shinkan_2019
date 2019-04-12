@@ -7,7 +7,7 @@ public class Player extends Character {
   int speed;
 
   Player(PImage img, float x, float y, int scale) {
-    super(width / 2, height - 50, 10, 10);
+    super(width / 2, height - 50, 0, 10);
     this.img = img;
     this.scale = scale;
     this.speed = 5;

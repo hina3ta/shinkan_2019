@@ -29,7 +29,7 @@ class EnemyShotCircle extends Character {
    * 円形の攻撃をするメソッドです
    */
   void circleShot() {
-    for (float degree = 0; degree < 360; degree += 15) {
+    for (float degree = 0; degree < 360; degree += 25) {
       Bullet bullet = new Bullet(getX(), getY(), degree, 2, 0);
       bulletList.add(bullet);
     }

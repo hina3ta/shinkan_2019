@@ -52,8 +52,8 @@ int title(){
   setup();
   textSize(30);
   fill(0);
-  text("Press z key to start", width * 0.25, height * 0.5);
-  if(keyPressed && key == 'z'){
+  text("Press SPACE key to start", width * 0.25, height * 0.5);
+  if(keyPressed && key == ' '){
     return 1;
   }
   return 0;
@@ -189,8 +189,8 @@ int ending(){
   text("Thankyou for Playing!", width * 0.2, height * 0.4);
   textSize(30);
   fill(0, 255, 0);
-  text("Press 'a' to restart.", width * 0.25, height * 0.7);
-  if(keyPressed && key == 'a') {
+  text("Press 'R' to restart.", width * 0.25, height * 0.7);
+  if(keyPressed && key == 'r') {
     return 0;
   }
   return 2;
