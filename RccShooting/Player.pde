@@ -4,7 +4,6 @@
 public class Player extends Character {
   PImage img;
   int scale;
-
   int speed;
 
   Player(PImage img, float x, float y, int scale) {

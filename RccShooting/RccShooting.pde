@@ -2,6 +2,7 @@ ArrayList<Bullet> bulletList;
 ArrayList<Laser> laserList;
 Enemy enemy;
 Player player;
+EnemyShotCircle enemyShotCircle;
 int state;
 
 // 各キーが押されているか否かを管理するフラグです
@@ -25,7 +26,8 @@ void setup() {
 
   bulletList = new ArrayList<Bullet>();
   laserList = new ArrayList<Laser> ();
-  enemy = new Enemy();
+  enemy = new Enemy(loadImage("enemy_reiwa.png"), float (width / 2), float (height / 3), 1);
+  enemyShotCircle = new EnemyShotCircle();
   player = new Player(loadImage("test01.png"), float(width / 2), float((height * 3) / 4), 1);
 }
 
@@ -161,14 +163,17 @@ int game() {
   enemy.move();
   enemy.draw();
 
+  fill(255, 0, 255);
+  enemyShotCircle.move();
+  enemyShotCircle.draw();
+
   player.update();
   player.draw();
 
   fill(0);
   textSize(10);
   text("Player HP:" + nf(player.getHitPoint(), 3) , 20, 20);
-  text("Enemy HP:" + nf(enemy.getHitPoint(), 3)  , 20, 40);
-
+  text("reiwa HP:" + nf(enemy.getHitPoint(), 3)  , 20, 40);
   /* 自機か敵機のHPが0になればゲームを止めます */
   if (player.getHitPoint() <= 0 || enemy.getHitPoint() <= 0){
     return 2;

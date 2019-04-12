@@ -3,10 +3,14 @@
  */
 class Enemy extends Character {
   private int angle;
+  int scale;
+  PImage img;
 
-  Enemy(){
-    super(width / 2, height / 3, 10, 30);
-    angle = 0;
+  Enemy(PImage img, float x, float y, int scale) {
+    super(width / 2, height / 3, 15, 100);
+    this.img = img;
+    this.scale = scale;
+    this.angle = 0;
   }
 
   /**
@@ -22,7 +26,7 @@ class Enemy extends Character {
    * 敵機を画面に表示するメソッドです
    */
   void draw() {
-    rect(getX() - 10, getY() - 10, 20, 20);
+    image(img, getX() - 16, getY() - 16, 32, 32);
     if (frameCount % 90 == 0) circleShot();
     if (frameCount % 10 == 0) slowCurveShot();
     if (frameCount % 120 == 0) snipeShot();
