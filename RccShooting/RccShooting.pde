@@ -162,7 +162,7 @@ int game() {
   fill(167, 87, 168);
   enemy.move();
   enemy.draw();
-
+  
   fill(255, 0, 255);
   enemyShotCircle.move();
   enemyShotCircle.draw();

@@ -29,7 +29,7 @@ public class Player extends Character {
     if ((keyPressed == true) && (key == ' ')) {
       laserList.add(new Laser(getX(), getY(), -90, 2, 8));
     }
-
+    
     if (keyUp && player.getY() + player.speed >= 0) {
       setY(getY() - speed);
     }
