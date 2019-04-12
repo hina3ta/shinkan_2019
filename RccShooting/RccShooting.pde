@@ -36,12 +36,12 @@ void setup() {
  * ゲームの処理はここで書かれています
  */
 void draw() {
-  int nextState= 0;
-  if(state == 0){
+  int nextState = 0;
+  if (state == 0) {
     nextState = title();
-  } else if(state == 1) {
+  } else if (state == 1) {
     nextState = game();
-  } else if(state == 2) {
+  } else if (state == 2) {
     nextState = ending();
   }
   state = nextState;
